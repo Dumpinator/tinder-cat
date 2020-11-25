@@ -1,49 +1,50 @@
-import React, { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import React, { useState, useEffect } from 'react'
+//import { v4 as uuidv4 } from 'uuid'
 import { Swipeable, direction } from 'react-deck-swiper'
 import './TinderCards.css'
 
-const data = ['Alexandre', 'Thomas', 'Lucien']
-
 function TinderCards(props) {
-    console.log(props);
-    const { cats, loading } = props
+    console.log('props debut', props)
+    const { cats, isLoaded } = props
+    const [cards, setCards] = useState([])
+
+    useEffect(() => {
+        console.log(isLoaded)
+        if (isLoaded === false)
+            setCards(cats)
+        //console.log('useEffect end')
+    }, [isLoaded, cats])
 
     const handleOnSwipe = (swipeDirection) => {
         if (swipeDirection === direction.RIGHT) {
             // handle right swipe
-            return;
+            console.log('RIGHT')
+            //return;
         }
         if (swipeDirection === direction.LEFT) {
             // handle left swipe
-            return;
+            console.log('LEFT')
+            //return;
         }
+        //console.log('end swipe');
   }
-
+  console.log('props end', props)
     return (
         <div className='tinderCards'>
             <div className="tinderCards__cardContainer">
-                    { !loading ? cats.map(cat => 
-
-                                <Swipeable 
-                                    key={uuidv4()}
-                                    onSwipe={handleOnSwipe}>
-                                    <div className='swipe'>
-                                        <div className='card' style={{ backgroundImage: `url(${cat.imgUrl})` }}>
-                                            <div className='description'>
-                                                <h3 >{cat.name}</h3>
-                                            </div>
-                                        </div>
+                { !isLoaded ? cards.map( cat => 
+                        <div className='swipe' key={cat._id} id={ cat._id } >
+                            <Swipeable onSwipe={handleOnSwipe}>
+                                <div className='card' style={{ backgroundImage: `url(${cat.imgUrl})` }}>
+                                    <div className='description'>
+                                        <h3 >{cat.name}</h3>
                                     </div>
-                                 </Swipeable>
-                            )
-                     : "LOADING.." 
-                    }
-            </div>
-            <div className='buttons'>
-                <button onClick={() => console.log('left')}>Swipe left!</button>
-                <button onClick={() => console.log('right')}>Swipe right!</button>
-                {/* lastDirection ? <h2 key={lastDirection} className='infoText'>You swiped {lastDirection}</h2> : <h2 className='infoText'>Swipe a card or press a button to get started!</h2> */}
+                                </div>
+                            </Swipeable>
+                        </div>
+                    )
+                    : "LOADING.." 
+                }
             </div>
         </div>
     )
