@@ -15,7 +15,6 @@
 
 .swipeButtons .MuiIconButton-root .MuiSvgIcon-fontSizeLarge { font-size: 4vw; }
 .swipeButtons .MuiIconButton-root:nth-child(2) .MuiSvgIcon-fontSizeLarge,
-    .swipeButtons .MuiIconButton-root:nth-child(3) .MuiSvgIcon-fontSizeLarge,
     .swipeButtons .MuiIconButton-root:nth-child(4) .MuiSvgIcon-fontSizeLarge { font-size: 5vw; }
 
 .swipeButtons .MuiIconButton-root:nth-child(1) { color: #f5b748; }
@@ -25,8 +24,7 @@
 .swipeButtons .MuiIconButton-root:nth-child(5) { color: #915dd1; }
 
 @media screen and (max-width: 600px) {
-    .swipeButtons .MuiIconButton-root .MuiSvgIcon-fontSizeLarge { font-size: 7vw; }
+    .swipeButtons .MuiIconButton-root .MuiSvgIcon-fontSizeLarge { font-size: 8vw; }
     .swipeButtons .MuiIconButton-root:nth-child(2) .MuiSvgIcon-fontSizeLarge,
-    .swipeButtons .MuiIconButton-root:nth-child(3) .MuiSvgIcon-fontSizeLarge,
     .swipeButtons .MuiIconButton-root:nth-child(4) .MuiSvgIcon-fontSizeLarge { font-size: 9vw; }
 }
