@@ -6,21 +6,21 @@ import morgan from 'morgan'
 import Card from './models/cardModel.js'
 
 // App Config
+dotenv.config({ path: '../.env' }, { silent: true })
 const app = express()
 const port = process.env.PORT || 8001
-const ENV = dotenv.config({ silent: true })
-const connection_DB = `mongodb+srv://admin:${ENV.parsed.PASSWORD_DB}@tindercatscluster.hstbm.mongodb.net/${ENV.parsed.NAME_DB}?retryWrites=true&w=majority`
-
+const connection_DB = `mongodb+srv://admin:${process.env.PASSWORD_DB}@tindercatscluster.hstbm.mongodb.net/${process.env.NAME_DB}?retryWrites=true&w=majority`
+console.log('maco ', connection_DB);
 // Middlewares
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
 app.use(morgan('dev'))
 // DB Config
 mongoose.connect(connection_DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
-}).then(() => {
+}).then((res) => {
     console.log('DB connection successful !')
   })
   .catch((err) => {
@@ -45,8 +45,9 @@ app.post('/cards', (req, res) => {
 })
 
 app.get('/cards', (req, res) => {
-
+    
     Card.find((err, data) => {
+
         if (err) {
             res.status(500).send(err)
         }
@@ -57,4 +58,4 @@ app.get('/cards', (req, res) => {
 })
 
 // Listener
-app.listen(port, () => console.log(`Listening on localhost : ${port}`))
+app.listen(port, () => console.log(`Listening Server on localhost : ${port}`))

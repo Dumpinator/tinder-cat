@@ -22,6 +22,7 @@ function App() {
       try {
         setIsLoaded(true)
         const res = await axios.get('/cards')
+        console.log(res);
         setCats(res.data)
         setOnce(true)
         setIsLoaded(false)
@@ -77,6 +78,11 @@ function App() {
               <Header />
               <TinderCards isLoaded={isLoaded} onUnliked={onUnliked} onLiked={onLiked} />
               <SwipeButtons onLiked={onLiked} onUnliked={onUnliked} />
+            </Route>
+
+            <Route exact path="/create">
+              <Header />
+              <h1>create</h1>
             </Route>
 
             <Route exact path="/profil">
