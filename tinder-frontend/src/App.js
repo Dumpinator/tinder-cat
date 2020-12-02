@@ -22,7 +22,6 @@ function App() {
       try {
         setIsLoaded(true)
         const res = await axios.get('/cards')
-        console.log(res);
         setCats(res.data)
         setOnce(true)
         setIsLoaded(false)
