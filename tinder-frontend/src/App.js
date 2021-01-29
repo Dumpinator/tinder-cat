@@ -18,6 +18,8 @@ function App() {
   const [once, setOnce] = useState(false)
   const [count, setCount] = useState(1)
 
+  const isMountedRef = React.useRef(null)
+
   const fetchData = async () => {
       try {
         setIsLoaded(true)
@@ -33,39 +35,48 @@ function App() {
   const onLiked = useCallback(() => {
     console.log('swipe à droite')
     const retiredCats = cats.slice(-1*count)
-    const myId = retiredCats[0]._id
-    const onRemoveCard = (id) => {
-      setCats( prevCats =>
-        prevCats.map((cat) => {
-          if(cat._id === id) cat.statut = 'liked'
-          return cat
-        }))
-      setCount(prevCount => prevCount+1)
-    }
-    onRemoveCard(myId)
+    //console.log('retiredCats ', retiredCats);
+    if (retiredCats.length >= 1) {
+      const myId = retiredCats[0]._id
+      const onRemoveCard = id => {
+        
+        setCats( prevCats =>
+          prevCats.map(cat => {
+            if(cat._id === id) cat.statut = 'liked'
+            return cat
+          })
+        )
+        console.log('ici');
+        setCount(prevCount => prevCount+1)
+        }
+        onRemoveCard(myId)
+      }
   }, [count, cats])
 
   const onUnliked = useCallback(() => {
     console.log('swipe à gauche')
     const retiredCats = cats.slice(-1*count)
-    const myId = retiredCats[0]._id
-    const onRemoveCard = (id) => {
-      setCats( prevCats =>
-        prevCats.map((cat) => {
-          if(cat._id === id) cat.statut = 'unliked'
-          return cat
-        }))
-      setCount(prevCount => prevCount+1)
+    if (retiredCats.length >= 1) {
+      const myId = retiredCats[0]._id
+      const onRemoveCard = id => {
+        setCats( prevCats =>
+          prevCats.map(cat => {
+            if(cat._id === id) cat.statut = 'unliked'
+            return cat
+          }))
+        setCount(prevCount => prevCount+1)
+      }
+      onRemoveCard(myId)
     }
-    onRemoveCard(myId)
   }, [count, cats])
 
   useEffect(() => {
-    if (once === false) { fetchData() }
-    return () => {
-      //console.log(once);
+    isMountedRef.current = true
+    if (once === false) { 
+      fetchData() 
     }
-  }, [once, onUnliked, onLiked])
+    return () => isMountedRef.current = false
+  }, [once])
 
   return (
     <UserContext.Provider value={cats}>
@@ -75,7 +86,7 @@ function App() {
 
             <Route exact path="/">
               <Header />
-              <TinderCards isLoaded={isLoaded} onUnliked={onUnliked} onLiked={onLiked} />
+              <TinderCards isLoaded={isLoaded} onUnliked={onUnliked} onLiked={onLiked} cats={cats} />
               <SwipeButtons onLiked={onLiked} onUnliked={onUnliked} />
             </Route>
 

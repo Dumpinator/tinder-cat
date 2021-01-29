@@ -1,12 +1,10 @@
 import React from 'react'
 import './SwipeButtons.css'
 
-import { Replay, Close, StarRate, Favorite, FlashOn } from '@material-ui/icons';
+import { Replay, Close, StarRate, Favorite, FlashOn } from '@material-ui/icons'
 import { IconButton } from '@material-ui/core'
 
 function SwipeButtons({ onLiked, onUnliked }) {
-    //console.log('mes bouttons');
-    //const { onLiked, onUnliked } = props
 
     return (
         <div className='swipeButtons'>

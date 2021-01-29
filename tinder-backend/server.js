@@ -8,10 +8,10 @@ import Card from './models/cardModel.js'
 dotenv.config({ path: '../tinder-frontend/.env' }, { silent: true })
 
 // DB Connection
-import connectToDb from './config/db.js'
+import './config/db.js'
 
 const app = express()
-const port = process.env.PORT || 8001
+const port = process.env.REACT_APP_SERVER_PORT || 8001
 
 // Middlewares
 app.use(cors())
