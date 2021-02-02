@@ -35,22 +35,19 @@ function App() {
   const onLiked = useCallback(() => {
     console.log('swipe à droite')
     const retiredCats = cats.slice(-1*count)
-    //console.log('retiredCats ', retiredCats);
     if (retiredCats.length >= 1) {
       const myId = retiredCats[0]._id
       const onRemoveCard = id => {
-        
         setCats( prevCats =>
           prevCats.map(cat => {
             if(cat._id === id) cat.statut = 'liked'
             return cat
           })
         )
-        console.log('ici');
         setCount(prevCount => prevCount+1)
-        }
-        onRemoveCard(myId)
       }
+      onRemoveCard(myId)
+    }
   }, [count, cats])
 
   const onUnliked = useCallback(() => {

@@ -50,7 +50,7 @@ function TinderCards({ isLoaded, onUnliked, onLiked }) {
                                                 <Photo />
                                                 <p>{ getRandomInt(1, 4) }</p>
                                             </IconButton>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </Swipeable>
                             </div>
